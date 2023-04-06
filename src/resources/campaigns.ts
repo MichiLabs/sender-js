@@ -2,6 +2,9 @@ import { Base } from '.'
 import { CreateResponse, PaginationResponse, Response } from '../types'
 
 export class Campaigns extends Base {
+	/**
+	 * Returns a list of all campaigns.
+	 */
 	list(
 		filter?: Partial<{
 			limit: number
@@ -12,14 +15,23 @@ export class Campaigns extends Base {
 			query: filter,
 		})
 	}
+	/**
+	 * Get a specific campaign.
+	 */
 	find(id: string) {
 		return this.fetch<{ data: object }>(`/campaigns/${id}`)
 	}
+	/**
+	 * Starts sending the campaign.
+	 */
 	send(id: string) {
 		return this.fetch<Response>(`/campaigns/${id}/send`, {
 			method: 'POST',
 		})
 	}
+	/**
+	 * Specify a date and time when the campaign should be sent.
+	 */
 	scheduleSend(id: string, schedule_time: string) {
 		return this.fetch<Response>(`/campaigns/${id}/schedule`, {
 			method: 'POST',
@@ -28,21 +40,33 @@ export class Campaigns extends Base {
 			},
 		})
 	}
+	/**
+	 * Cancel a campaign that is scheduled to be sent.
+	 */
 	cancelSchedule(id: string) {
 		return this.fetch<Response>(`/campaigns/${id}/schedule`, {
 			method: 'DELETE',
 		})
 	}
+	/**
+	 * Cancel the automatic follow-up to this campaign, if it is enabled.
+	 */
 	cancelFollowUp(id: string) {
 		return this.fetch<Response>(`/campaigns/${id}/cancel_followup`, {
 			method: 'POST',
 		})
 	}
+	/**
+	 * Would make a copy of the specified campaign.
+	 */
 	copy(id: string) {
 		return this.fetch<CreateResponse>(`/campaigns/${id}/copy`, {
 			method: 'POST',
 		})
 	}
+	/**
+	 * Deletes one or more campaigns.
+	 */
 	delete(ids: string[], status?: 'DRAFT' | 'SENT' | 'PENDING' | 'PREPARING') {
 		return this.fetch<Response>(`/campaigns`, {
 			method: 'DELETE',
@@ -52,6 +76,11 @@ export class Campaigns extends Base {
 			},
 		})
 	}
+	/**
+	 * Use this API method to create a new campaign from scratch. Specify the group or segment IDs that this campaign will be sent to.
+	 *
+	 * You can use API to provide plain text or a custom HTML campaign content. For drag&drop templates, you must create its content in your Sender application interface.
+	 */
 	create(data: {
 		title?: string
 		subject: string
@@ -71,6 +100,9 @@ export class Campaigns extends Base {
 			body: data,
 		})
 	}
+	/**
+	 * Returns a list of errors with reasons why this campaign cannot be sent.
+	 */
 	errors(id: string) {
 		return this.fetch<{ errors: object[]; warnings: object[] }>(
 			`/campaigns/${id}/errors`

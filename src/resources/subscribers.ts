@@ -2,12 +2,21 @@ import { Base } from '.'
 import { CreateResponse, Response, SubscribersListResponse } from '../types'
 
 export class Subscribers extends Base {
+	/**
+	 * Returns all subscribers in your Sender account.
+	 */
 	list() {
 		return this.fetch<SubscribersListResponse>('/subscribers')
 	}
+	/**
+	 * Returns a subscriber profile with the specified email address.
+	 */
 	find(email: string) {
 		return this.fetch<{ data: object }>(`/subscribers/${email}`)
 	}
+	/**
+	 * Creates a new subscriber, providing basic information, fields and groups.
+	 */
 	create(
 		email: string,
 		information?: Partial<{
@@ -24,6 +33,9 @@ export class Subscribers extends Base {
 			body: { email, ...information },
 		})
 	}
+	/**
+	 * Updates subscriber's information, fields, groups or status.
+	 */
 	update(
 		email: string,
 		information?: Partial<{
@@ -40,6 +52,9 @@ export class Subscribers extends Base {
 			body: information,
 		})
 	}
+	/**
+	 * Returns a list of actions that this subscriber has performed.
+	 */
 	getSubscriberEvents(
 		email: string,
 		actions: 'opened' | 'bounced' | 'clicked' | 'unsubscribed' | 'got'[]
@@ -50,6 +65,9 @@ export class Subscribers extends Base {
 			},
 		})
 	}
+	/**
+	 * Deletes one or more subscribers.
+	 */
 	delete(subscribers: string[]) {
 		return this.fetch<Response>(`/subscribers`, {
 			method: 'DELETE',
@@ -58,6 +76,9 @@ export class Subscribers extends Base {
 			},
 		})
 	}
+	/**
+	 * Adds one or more subscribers to the specified group.
+	 */
 	addToGroup(
 		groupId: string,
 		subscribers: string[],
@@ -73,6 +94,9 @@ export class Subscribers extends Base {
 			},
 		})
 	}
+	/**
+	 * Removes one or more subscribers from a group.
+	 */
 	removeFromGroup(groupId: string, subscribers: string[]) {
 		return this.fetch<Response>(`/subscribers/groups/${groupId}`, {
 			method: 'DELETE',
