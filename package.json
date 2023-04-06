@@ -1,0 +1,40 @@
+{
+	"name": "@michilabs/sender-js",
+	"version": "0.1.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "unbuild",
+		"dev": "vitest dev",
+		"prepack": "unbuild",
+		"release": "pnpm test && git push --follow-tags && pnpm publish",
+		"test": "vitest run --coverage"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^18.15.11",
+		"@vitest/coverage-c8": "^0.29.8",
+		"dotenv": "^16.0.3",
+		"unbuild": "^1.2.0",
+		"vitest": "^0.29.8"
+	},
+	"dependencies": {
+		"ofetch": "^1.0.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"packageManager": "pnpm@7.28.0"
+}
