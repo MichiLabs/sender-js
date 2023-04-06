@@ -23,6 +23,24 @@ import { createClient } from '@michilabs/sender-js'
 const { createClient } = require('@michilabs/sender-js')
 ```
 
+Example:
+
+```js
+const sender = createClient('<your_access_token>')
+
+const data = await sender.subscribers.list()
+```
+
+## Available resources
+
+-   Subscribers (`subscribers`)
+-   Groups (`groups`)
+-   Segments (`segments`)
+-   Fields (`fields`)
+-   Statistics (`statistics`)
+-   Campaigns (`campaigns`)
+-   Workflows (`workflows`)
+
 ## 💻 Development
 
 -   Clone this repository
